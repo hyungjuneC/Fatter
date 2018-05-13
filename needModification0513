@@ -1,0 +1,1 @@
+FoodInfo class --> getter setter 메소드 이름을 변수이름과 통일 ex) foodNutrient -- getFoodNutrient/setFoodNutrient
