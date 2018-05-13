@@ -1,2 +1,0 @@
-1 . FoodInfo class --> getter setter 메소드 이름을 변수이름과 통일 ex) foodNutrient -- getFoodNutrient/setFoodNutrient
-2 . slide#14 LoginModule 이랑 DBModule연결 필요함 : compareIDPassword
