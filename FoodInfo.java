@@ -1,5 +1,5 @@
 
-public class FoodInfo {
+public class FoodInfo {//음식의 정보를 저장하기 위한 클래스
 
  private	String UserID;
 	
@@ -9,9 +9,9 @@ public class FoodInfo {
 	
  private	String foodName;
 	
- private	double[] foodNutrient;
+ private	double[] foodNutrient; //배열의 형태로 각 index가 각 영양소를 나타냄
  
- FoodInfo(){
+ FoodInfo(){//constructor
  }
 //클래스의 정보를 저장하거나 값을 가져오기 위한 함수들
 public int getFoodID() {
