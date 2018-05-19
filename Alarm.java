@@ -1,19 +1,31 @@
 package fattar;
 
 public class Alarm {
-	private Time eatTime;
+	private Time nextEatTime;		// ë‹¤ìŒ ì‹ì‚¬ ì˜ˆì • ì‹œê°„
+	private Time latestEatTime;		// ë§ˆì§€ë§‰ìœ¼ë¡œ ì‹ì‚¬ë¥¼ í•œ ì‹œê°„
 	
-	public void getEatTimeDB() {			// getEatTimeDB()¸¦ ÅëÇØ DB¿¡ ÀúÀåµÇ¾î ÀÖ´Â °¡Àå ÃÖ±ÙÀÇ ½Ä»ç Á¤º¸ °¡Á®¿Â´Ù.
+	public void getEatTimeDB() {			// getEatTimeDB()ë¥¼ í†µí•´ DBì— ì €ì¥ë˜ì–´ ìˆëŠ” ê°€ì¥ ìµœê·¼ì˜ ì‹ì‚¬ ì •ë³´ ê°€ì ¸ì˜¨ë‹¤.
 		DBModule dbModule;
 		dbModule.getEatenDBinfro()
 	}
-	public void setAlarmTime(Time time) {	// À¯Àú°¡ ½Ä»çÇÑ ½Ã°£ ±âÁØÀ¸·Î 6½Ã°£ ÀÌÈÄ¸¦ ½Ä»ç ¿¹»ó½Ã°£À¸·Î ¼³Á¤, ÇØ´ç ½Ã°£À» Time Çü½ÄÀ¸·Î ¹İÈ¯
-		this.eatTime = time;
+	public void setAlarmTime(Time time) {		// ìœ ì €ê°€ ì‹ì‚¬í•œ ì‹œê°„ ê¸°ì¤€ìœ¼ë¡œ 6ì‹œê°„ ì´í›„ë¥¼ ì‹ì‚¬ ì˜ˆìƒì‹œê°„ìœ¼ë¡œ ì„¤ì •
+		time.hour += 6;
+		this.nextEatTime = time;
 	}	
-	public void startAlarm() {				// JAVA Thred¸¦ »ç¿ëÇØ ½Ä»ç ¿¹»ó ½Ã°£ÀÌ µÇ¾ú´ÂÁö ÆÇ´ÜÇÏ°í, ¼Ò¸®¸¦ Ãâ·Â
-		
+	public void startAlarm() {			// JAVA Thredë¥¼ ì‚¬ìš©í•´ ì‹ì‚¬ ì˜ˆì • ì‹œê°„ì´ ë˜ì—ˆëŠ”ì§€ íŒë‹¨í•˜ê³ , ì˜ˆì • ì‹œê°„ì¼ ê²½ìš° ì†Œë¦¬ë¥¼ ì¶œë ¥
+		while(1){
+			if (current == nextEatTime){
+				//alarm ìš¸ë¦¬ê¸°
+				break;
+			}
+		}				
+			
 	}
-	public void stopAlarm() {				//  À¯Àú°¡ ¾Ë¶÷À» ²ô¸é ½ÇÇàµÇ¸ç, thread¸¦ Á¾·á ½ÃÅ²´Ù.
-		
+	public void stopAlarm() {			//  ìœ ì €ê°€ ì•ŒëŒì„ ë„ë©´ ì‹¤í–‰ë˜ë©°, threadë¥¼ ì¢…ë£Œ ì‹œí‚¨ë‹¤.
+		//Thread ì¢…ë£Œ
 	}
+}
+
+public static void main(String[] args) {		//unit test ìš© ë©”ì¸ í•¨ìˆ˜
+		
 }
