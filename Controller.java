@@ -12,10 +12,12 @@ public class Controller {
 		// TODO Auto-generated constructor stub
 	}
 	
+	// 로그인 - LoginModule
 	public void login() {
 		
 	}
 	
+	// 회원가입 - LoginModule
 	public void register() {
 		// TODO Auto-generated method stub
 

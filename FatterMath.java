@@ -1,22 +1,31 @@
-import java.math;
-import java.io;
 
-public class FatterMath {//°£´ÜÇÑ ¼öÇĞÀû ¿¬»êµéÀ» À§ÇÑ Å¬·¡½º
-
+public class FatterMath {
 	
-	
-	FatterMath(){
-		
+	public FatterMath() {
+		// TODO Auto-generated constructor stub
 	}
+	
+	// ì˜ì–‘ì†Œ ê³„ì‚°
 	public double totalNutrient() {
 		
-	}// ¿À´Ã ÇöÀç±îÁö ¸ÔÀº À½½ÄÀÇ ÃÑ ¿µ¾ç¼Ò °è»ê
+	}
 	
-	public boolean evaluateEatenFood(FoodInfo food) {
+	// ë¨¹ì€ìŒì‹ ì „ì²´ìŒì‹ ì¹¼ë¡œë¦¬ ê³„ì‚°
+	public evaluateEatenFood() {
 		
-	}//¸ÔÀº À½½ÄÀÌ ÀûÇÕÇÑÁö ¾Æ´ÑÁö ÆÇ´ÜÇØÁÖ´Â ÇÔ¼ö
+	}
 	
+	// BMR(ê¸°ì´ˆëŒ€ì‚¬ëŸ‰) ê³„ì‚°
 	public double calculBMR(User user) {
 		
-	}//À¯ÀúÀÇ Á¤º¸¸¦ ¹Ş¾Æ¼­ ±âÃÊ ´ë»ç·® °è»ê
+		User tmp = user.getinfo();
+		
+		// maleì¼ ê²½ìš°
+		if(tmp.sex == true)
+			return (66 + (13.7 * tmp.weight) + (5.0 * tmp.height) - (6.8 * tmp.age));
+		
+		// femaleì¼ ê²½ìš°
+		else 
+			return (655 + (9.6 * tmp.weight) + (1.8 * tmp.height) - (4.7 * tmp.age));
+	}
 }
