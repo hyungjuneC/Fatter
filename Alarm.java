@@ -6,7 +6,7 @@ public class Alarm {
 	
 	public void getEatTimeDB() {			// getEatTimeDB()를 통해 DB에 저장되어 있는 가장 최근의 식사 정보 가져온다.
 		DBModule dbModule;
-		dbModule.getEatenDBinfro()
+		dbModule.getEatenDBinfo()
 	}
 	public void setAlarmTime(Time time) {		// 유저가 식사한 시간 기준으로 6시간 이후를 식사 예상시간으로 설정
 		time.hour += 6;
