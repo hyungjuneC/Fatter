@@ -39,6 +39,9 @@ public class Controller {
 	
 	public void alarm() {			// 알람 control
 		
+		if(){	//UI에서 알람 종류 눌리면	
+			myAlarm.stopAlarm();
+		}
 
 	}
 	
