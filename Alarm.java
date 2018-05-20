@@ -12,7 +12,7 @@ public class Alarm {
 		time.hour += 6;
 		this.nextEatTime = time;
 	}	
-	public void startAlarm() {			// JAVA Thred를 사용해 식사 예정 시간이 되었는지 판단하고, 예정 시간일 경우 소리를 출력
+	public void startAlarm() {			// JAVA Thread를 사용해 식사 예정 시간이 되었는지 판단하고, 예정 시간일 경우 소리를 출력
 		while(1){
 			if (current == nextEatTime){
 				//alarm 울리기
