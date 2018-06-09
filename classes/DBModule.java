@@ -72,7 +72,6 @@ public class DBModule {
          File output = new File("C:\\Users\\caucse\\Desktop\\Fatter-master\\classes\\UserDB.txt");
          FileWriter fw = new FileWriter(output,true);
          //BufferedWriter bw = new BufferedWriter(fw);
-         fw.write(LINE_SEPARATOR);
          fw.write(String.format("%s",strId));
          fw.write(String.format(":"));
          fw.write(String.format("%s",strPw));
@@ -85,6 +84,7 @@ public class DBModule {
          fw.write(String.format(":"));
          fw.write(String.format("%d",age));
          fw.flush();
+	 fw.write(LINE_SEPARATOR);
          System.out.println("DONE");
          fw.close();
       }catch(FileNotFoundException e) {
