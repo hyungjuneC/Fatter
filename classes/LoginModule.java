@@ -1,13 +1,6 @@
 
 public class LoginModule {
-   
-   private String inputID;         
-   private String inputPassword;      
-   private Boolean inputSex;      
-   private double inputHeight;      
-   private double inputWeight;      
-   private double inputAge;      
-   
+
    // Constructor
    public LoginModule() {
       // TODO Auto-generated constructor stub
@@ -29,7 +22,7 @@ public class LoginModule {
     	  return false;
       }
       else {
-    	  myDBModule.setUserDBInfo(strId, strPw, sex, Float.parseFloat(height), Float.parseFloat(weight), Integer.parseInt(age));
+    	  myDBModule.setUserDBInfoFirst(strId, strPw, sex, Float.parseFloat(height), Float.parseFloat(weight), Integer.parseInt(age));
     	  return true;
       }
     
