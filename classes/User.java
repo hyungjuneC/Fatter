@@ -1,30 +1,35 @@
-package fattar;
-
 public class User {
 	private String u_id;
 	private String password;
-	private boolean sex;
+	private String sex;
 	private double height;
 	private double weight;
 	private int age;
 	private double BMR;
-	
-	public void getUserInfo() {	// dbModuleÀ» »ç¿ëÇÏ´Â getter ÇÔ¼ö
+	/*
+	public void getUserInfo() {	// dbModuleì„ ì‚¬ìš©í•˜ëŠ” getter í•¨ìˆ˜
 		LoginModule loginModule;
 		DBModule dbModule;
 
-		if (loginModule.compareIDPassword()) {	// ÀÔ·Â ¾ÆÀÌµğ¿Í ºñ¹øÀÌ DB¿Í ÀÏÄ¡½Ã 
+		if (loginModule.compareIDPassword()) {	// ì…ë ¥ ì•„ì´ë””ì™€ ë¹„ë²ˆì´ DBì™€ ì¼ì¹˜ì‹œ 
 			dbModule.getUserDBInfo(this);
 		}
-	}
+	}*/
 	
-	public void setUserInfo(boolean Sex, double Height, double Weight, int Age) {	// »ç¿ëÀÚÀÇ ÀÔ·ÂÀ» ¹Ş¾Æ ÀúÀåÇÏ´Â setter ÇÔ¼ö
+	public void setUserInfo(String u_id,String password,String Sex, double Height, double Weight, int Age) {	// ì‚¬ìš©ìì˜ ì…ë ¥ì„ ë°›ì•„ ì €ì¥í•˜ëŠ” setter í•¨ìˆ˜
+		this.u_id = u_id;
+		this.password = password;
 		this.sex = Sex;
 		this.height = Height;
 		this.weight = Weight;
 		this.age = Age;
 	}
-	
+	public String getId() {
+		return this.u_id;
+	}
+	public String getPW() {
+		return this.password;
+	}
 	public double getBMR(){
 		return this.BMR;
 	}
