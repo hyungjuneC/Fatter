@@ -1,3 +1,5 @@
+package application;
+
 import java.util.Scanner;
 import java.io.File;
 import java.io.FileInputStream;
@@ -28,16 +30,15 @@ public class DBModule {
 
    DBModule(){//constructor
       try{
-            FileInputStream Input = new FileInputStream("C:\\Users\\caucse\\Desktop\\Fatter-master\\classes\\FoodDB.txt");
+            FileInputStream Input = new FileInputStream("FoodDB.txt");
 
                int i = 0;
                    
                
                if(Input.read()==-1) {
-                  System.out.println("Not crawled yet!");
-                  //Crawling crawl = new Crawling; //크롤링 모듈 선언
-                //crawl.connectURL(); // 홈페이지 연결
-                //crawl.getFoodInfo(fired);//웹DB에서 크롤링을 통해 음식 정보들을 로컬 DB에 저장               
+                  System.out.println("Start Crawl!");
+                  Crawling crawl = new Crawling(); //크롤링 모듈 선언
+                  crawl.Crawling();
                }
                else {
             	   /*
@@ -69,9 +70,10 @@ public class DBModule {
    
    public void setUserDBInfo(String strId, String strPw,String sex, float height, float weight, int age) {
       try {
-         File output = new File("C:\\Users\\caucse\\Desktop\\Fatter-master\\classes\\UserDB.txt");
+         File output = new File("UserDB.txt");
          FileWriter fw = new FileWriter(output,true);
          //BufferedWriter bw = new BufferedWriter(fw);
+        
          fw.write(String.format("%s",strId));
          fw.write(String.format(":"));
          fw.write(String.format("%s",strPw));
@@ -84,8 +86,8 @@ public class DBModule {
          fw.write(String.format(":"));
          fw.write(String.format("%d",age));
          fw.flush();
-	 fw.write(LINE_SEPARATOR);
-         System.out.println("DONE");
+         fw.write(LINE_SEPARATOR);
+         System.out.println("Register DONE");
          fw.close();
       }catch(FileNotFoundException e) {
          
@@ -97,7 +99,7 @@ public class DBModule {
    
    public void getUserDBInfo(String u_id,User user) {
       try {
-         File input = new File("C:\\Users\\caucse\\Desktop\\Fatter-master\\classes\\UserDB.txt");
+         File input = new File("UserDB.txt");
          FileReader filereader = new FileReader(input);
          BufferedReader bufReader = new BufferedReader(filereader);
       
@@ -131,7 +133,7 @@ public class DBModule {
    }
    public boolean search(String name) {
 	   try {
-	         File input = new File("C:\\Users\\caucse\\Desktop\\Fatter-master\\classes\\UserDB.txt");
+	         File input = new File("UserDB.txt");
 	         FileReader filereader = new FileReader(input);
 	         BufferedReader bufReader = new BufferedReader(filereader);
 	      
@@ -222,7 +224,6 @@ public class DBModule {
    
    }// 이름과 일치하는 정보를 가진 항목이 DB안에 있는 지 검사하고 그 위치를 전달
    
-
       
    }//유저 클래스 안에서 getUsesrInfo 함수안에서 쓰이는 함수로 id와 일치하는 레코드를 데이터 베이스 안에서 찾고 이를  
    */
