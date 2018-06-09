@@ -1,118 +1,230 @@
 import java.util.Scanner;
-import java.io.File
+import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileOutputStream
-import java.io.ObjectOutputStream
-import java.io.serializable
+import java.io.FileOutputStream;
+import java.io.BufferedReader;
+import java.io.FileWriter;
+import java.io.FileReader;
+import java.lang.Integer;
+import java.lang.Float;
+//import java.io.serializable;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.io.IOException;
+import java.io.FileNotFoundException;
+import java.io.*;
+
+
+
 public class DBModule {
-private FoodInfo eatenInfo;
-private FoodInfo foodInfo;
-private double[] actInfo;// Çàµ¿ÀÇ Á¤º¸´Â ÀüºÎ ¼öÄ¡ÀÌ±â ¶§¹®¿¡ ¹è¿­ÀÇ index°¢°¢ÀÌ Çàµ¿ÀÇ Á¤º¸¸¦ ÀúÀå
-private String foodName;
-private User user;
-private String date;
-private FatterMath math;
+   //private FoodInfo eatenInfo;
+   //private FoodInfo foodInfo;
+   //private double[] actInfo;// í–‰ë™ì˜ ì •ë³´ëŠ” ì „ë¶€ ìˆ˜ì¹˜ì´ê¸° ë•Œë¬¸ì— ë°°ì—´ì˜ indexê°ê°ì´ í–‰ë™ì˜ ì •ë³´ë¥¼ ì €ì¥
+   //private String foodName;
+   //private User user;
+   //private String date;
+   //private FatterMath math;
 
 
-DBModule(){//constructor
-	
-	FileInputStream fired = new FileInputStream("foodDB");
-	if(fired.read()== -1) {//½ÃÀÛÇÒ ¶§ Çªµå DB°¡ ºñ¾îÀÖ´ÂÁö È®ÀÎ ºñ¾îÀÖ´Ù¸é,
-		Crawling crawl = new Crawling; //Å©·Ñ¸µ ¸ğµâ ¼±¾ğ
-		crawl.connectURL(); // È¨ÆäÀÌÁö ¿¬°á
-		crawl.getFoodInfo(fired);//À¥DB¿¡¼­ Å©·Ñ¸µÀ» ÅëÇØ À½½Ä Á¤º¸µéÀ» ·ÎÄÃ DB¿¡ ÀúÀå
-	
-	
-	}
-	else {
-	}//ÀÌ¹Ì Á¤º¸µéÀÌ ÀÖ´Â °æ¿ì »ı·«
-	fired.close();
-}
+   DBModule(){//constructor
+      try{
+            FileInputStream Input = new FileInputStream("C:\\Users\\caucse\\Desktop\\Fatter-master\\classes\\FoodDB.txt");
 
-public void setUserDBInfo(User user) {
-	FileOutputStream userfile = new FileOutPutStream("userDB");
-	ObjectOutputStream d_stream = new ObjectOutputStream(userfile);//µ¥ÀÌÅÍº£ÀÌ½º Á¢¼Ó
-	wrt.write();//Á¤ÇØÁø Çü½Ä¿¡ µû¶ó db¿¡  ÀÔ·Â
-	userfile.close();
-}//À¯Àú Å¬·¡½º¾È¿¡¼­ setUserInfo ÇÔ¼ö ¾È¿¡¼­ ½ÇÇàµÉ ÇÔ¼ö·Î ÆÄ¶ó¹ÌÅÍ·Î  È¸¿ø°¡ÀÔ ½Ã ÀÔ·ÂµÈ Á¤º¸°¡ ÀúÀåµÈ User Å¬·¡½º¸¦ ¹Ş¾Æ ±×Á¤º¸¸¦ DB¿¡ ±â·ÏÇÑ´Ù.
+               int i = 0;
+                   
+               
+               if(Input.read()==-1) {
+                  System.out.println("Not crawled yet!");
+                  //Crawling crawl = new Crawling; //í¬ë¡¤ë§ ëª¨ë“ˆ ì„ ì–¸
+                //crawl.connectURL(); // í™ˆí˜ì´ì§€ ì—°ê²°
+                //crawl.getFoodInfo(fired);//ì›¹DBì—ì„œ í¬ë¡¤ë§ì„ í†µí•´ ìŒì‹ ì •ë³´ë“¤ì„ ë¡œì»¬ DBì— ì €ì¥               
+               }
+               else {
+            	   /*
+                  while((i = Input.read()) != -1) {
+                     System.out.write(i);
+                  }*/
+               }
+       } catch (IOException e) {
+          System.out.println(e);
+       } finally {
+          /*
+          try{
+              Input.close();
+           } catch(IOException io) {}
+           */
+          
+       }
+   }
+   /*
+   public static void main(String[] args) {//unit test ìš© ë©”ì¸ í•¨ìˆ˜
+      User myuser = new User();
+      DBModule myDB = new DBModule();
+      //myDB.getUserDBInfo("aaa", myuser);
+      //myDB.setUserDBInfo("hey", "hi");
+   }*/
+   private static final String LINE_SEPARATOR = System
+               .getProperty("line.separator");
 
-public void getUserDBInfo(String u_id,User user ) {
-	
-	FileInputStream fred = new FileInputStream("userDB");
-	DBModule.search(u_id);//search ÇÔ¼ö¸¦ ÅëÇØ id¿Í ÀÏÄ¡ÇÏ´Â ·¹ÄÚµå °Ë»ö
-	String arr = fred.read();//ÀÏÄ¡ÇÏ´Â À¯Àú Á¤º¸ °¡Á®¿È
-	arr.split(":");
-	for(int i = 0; i< arr.length(); i++) {
-	user.info = arr[i];// ¸Â´Â Á¤º¸¸¦ ¼ø¼­´ë·Î ÆÄ½ÌÇÏ¿© ÀúÀå
-	}
-	fred.close();
-}
+   
+   public void setUserDBInfo(String strId, String strPw,String sex, float height, float weight, int age) {
+      try {
+         File output = new File("C:\\Users\\caucse\\Desktop\\Fatter-master\\classes\\UserDB.txt");
+         FileWriter fw = new FileWriter(output,true);
+         //BufferedWriter bw = new BufferedWriter(fw);
+         fw.write(LINE_SEPARATOR);
+         fw.write(String.format("%s",strId));
+         fw.write(String.format(":"));
+         fw.write(String.format("%s",strPw));
+         fw.write(String.format(":"));
+         fw.write(String.format("%s",sex));
+         fw.write(String.format(":"));
+         fw.write(String.format("%f",height));
+         fw.write(String.format(":"));
+         fw.write(String.format("%f",weight));
+         fw.write(String.format(":"));
+         fw.write(String.format("%d",age));
+         fw.flush();
+         System.out.println("DONE");
+         fw.close();
+      }catch(FileNotFoundException e) {
+         
+      }catch(IOException e) {
+         System.out.println(e);
+      }
+      
+   }//ìœ ì € í´ë˜ìŠ¤ì•ˆì—ì„œ setUserInfo í•¨ìˆ˜ ì•ˆì—ì„œ ì‹¤í–‰ë  í•¨ìˆ˜ë¡œ íŒŒë¼ë¯¸í„°ë¡œ  íšŒì›ê°€ì… ì‹œ ì…ë ¥ëœ ì •ë³´ê°€ ì €ì¥ëœ User í´ë˜ìŠ¤ë¥¼ ë°›ì•„ ê·¸ì •ë³´ë¥¼ DBì— ê¸°ë¡í•œë‹¤.
+   
+   public void getUserDBInfo(String u_id,User user) {
+      try {
+         File input = new File("C:\\Users\\caucse\\Desktop\\Fatter-master\\classes\\UserDB.txt");
+         FileReader filereader = new FileReader(input);
+         BufferedReader bufReader = new BufferedReader(filereader);
+      
+         String line="";
+         String split[];
+         String DB_id="";
+         String DB_pw="";
+         while((line = bufReader.readLine()) !=null) {
+            
+            split = line.split(":");
+            DB_id = split[0];
+            DB_pw = split[1]; 
+            if(u_id.equals(DB_id)) {
+               String sex = split[2];
+               
+               double height = Float.parseFloat(split[3]);
+               double weight = Float.parseFloat(split[4]);
+               int age = Integer.parseInt(split[5]);
+      
+               user.setUserInfo(DB_id,DB_pw,sex, height, weight, age);
+               break;
+            }
+         }
+         bufReader.close();
+      }catch(FileNotFoundException e) {
+         
+      }catch(IOException e) {
+         System.out.println(e);
+      }
+   
+   }
+   public boolean search(String name) {
+	   try {
+	         File input = new File("C:\\Users\\caucse\\Desktop\\Fatter-master\\classes\\UserDB.txt");
+	         FileReader filereader = new FileReader(input);
+	         BufferedReader bufReader = new BufferedReader(filereader);
+	      
+	         String line="";
+	         String split[];
+	         String DB_id="";
+	         
+	         while((line = bufReader.readLine()) !=null) {
+	            
+	            split = line.split(":");
+	            DB_id = split[0];
+	            
+	            if(name.equals(DB_id)) {
+	              return true;	    
+	            }
+	         }
+	         bufReader.close();
+	         return false;
+	         
+	      }catch(FileNotFoundException e) {
+	    	  return false;
+	         
+	      }catch(IOException e) {
+	         System.out.println(e);
+	         return false;
+	      }
+	   
+	   
+   }// ì´ë¦„ê³¼ ì¼ì¹˜í•˜ëŠ” ì •ë³´ë¥¼ ê°€ì§„ í•­ëª©ì´ DBì•ˆì— ìˆëŠ” ì§€ ê²€ì‚¬í•˜ê³  ê·¸ ìœ„ì¹˜ë¥¼ ì „ë‹¬
+   
+   
+   /*
+   public void setFoodDBInfo() {
+      FileOutputStream foodFile = new FileOutPutStream("foodDB");
+      ObjectOutputStream d_stream = new ObjectOutputStream(foodFile);//ë°ì´í„°ë² ì´ìŠ¤ ì ‘ì†
+      
+      wrt.write();//ì •í•´ì§„ í˜•ì‹ì— ë”°ë¼ dbì—  ì…ë ¥
+   }// ìœ ì €ì—ê²Œ ì…ë ¥ë°›ì€ ìŒì‹ì˜ ì •ë³´ë¥¼ ìŒì‹ dbì— ì €ì¥
+   
+   public void getFoodDBInfo(String foodName) {
+      FileInputStream fred = new FileInputStream("foodDB");
+      DBModule.search(foodname);//search í•¨ìˆ˜ë¥¼ í†µí•´ ìŒì‹ì´ë¦„ì™€ ì¼ì¹˜í•˜ëŠ” ë ˆì½”ë“œ ê²€ìƒ‰
+      String arr = fred.read();//ì¼ì¹˜í•˜ëŠ” ìŒì‹ ì •ë³´ ê°€ì ¸ì˜´
+      arr.split(":");
+      for(int i = 0; i< arr.length(); i++) {
+      foodInfo.info = arr[i];// ë§ëŠ” ì •ë³´ë¥¼ ìˆœì„œëŒ€ë¡œ íŒŒì‹±í•˜ì—¬ ì €ì¥
+      }
+      fred.close();
+   }
+   public void setActDBInfo(double[] act) {
+      FileOutputStream actFile = new FileOutPutStream("ActDB");
+      //ë°ì´í„°ë² ì´ìŠ¤ ì ‘ì†
+      
+      wrt.write();//ì •í•´ì§„ í˜•ì‹ì— ë”°ë¼ dbì—  ì…ë ¥
+   }// ìœ ì €ì—ê²Œ ì…ë ¥ë°›ì€  ìš´ë™ì˜ ì •ë³´ë¥¼ ìš´ë™ dbì— ì €ì¥
+   
+   public void getActDBInfo(String actName) {
+      FileInputStream fred = new FileInputStream("ActDB");
+      DBModule.search(actName);//search í•¨ìˆ˜ë¥¼ í†µí•´ ìš´ë™ì˜ ì´ë¦„ê³¼ ì¼ì¹˜í•˜ëŠ” ë ˆì½”ë“œ ê²€ìƒ‰
+      String arr = fred.read();//ì¼ì¹˜í•˜ëŠ” ìš´ë™ ì •ë³´ ê°€ì ¸ì˜´
+      arr.split(":");
+      for(int i = 0; i< arr.length(); i++) {
+      actInfo.info = (double)arr[i];// ë§ëŠ” ì •ë³´ë¥¼ ìˆœì„œëŒ€ë¡œ íŒŒì‹±í•˜ì—¬ ì €ì¥
+      }
+      fred.close();
+   }
+   
+   public void setEatenDBInfo() {
+      FileOutputStream EatenfoodFile = new FileOutPutStream("EatenfoodDB");
+      ObjectOutputStream d_stream = new ObjectOutputStream(EatenfoodFile);//ë°ì´í„°ë² ì´ìŠ¤ ì ‘ì†
+      if(math.evaluateEatenFood(eatenInfo))// ë§Œì•½ ë¨¹ì€ ìŒì‹ì´ ê¸°ì¤€ì— ë§ì§€ ì•ŠëŠ”ì§€ í™•ì¸
+      wrt.write();//ê¸°ì¤€ì— ë§ìœ¼ë©´ ì •í•´ì§„ í˜•ì‹ì— ë”°ë¼ dbì—  ì…ë ¥
+   }// ìœ ì €ì—ê²Œ ì…ë ¥ë°›ì€ ìŒì‹ì˜ ì •ë³´ë¥¼ ìŒì‹ dbì— ì €ì¥
+   
+   public void getEatenDBInfo(String foodName) {
+      FileInputStream fred = new FileInputStream("EatenfoodDB");
+      while(String arr = fred.read())//íŒŒì¼ ëì´ ë‹¤ë‹¬ì„ë•Œê¹Œì§€ ìŒì‹ ì •ë³´ ê°€ì ¸ì˜´
+      
+      arr.split(":");
+      for(int i = 0; i< arr.length(); i++) {
+      EatenInfo.info = arr[i];// ë§ëŠ” ì •ë³´ë¥¼ ìˆœì„œëŒ€ë¡œ íŒŒì‹±í•˜ì—¬ ì €ì¥
+      }
+      print(math.totalNutrient());// ë¨¹ì€ ìŒì‹ì˜ ì´ ì˜ì–‘ê°€ ê³„ì‚° í›„ ì¶œë ¥
+      fred.close();
+   }//ì˜¤ëŠ˜ ë¨¹ì€ ìŒì‹ì˜ ì •ë³´ë“¤ì„ ê°€ì ¸ì˜´
+   
+   public void search(String name) {
+   
+   }// ì´ë¦„ê³¼ ì¼ì¹˜í•˜ëŠ” ì •ë³´ë¥¼ ê°€ì§„ í•­ëª©ì´ DBì•ˆì— ìˆëŠ” ì§€ ê²€ì‚¬í•˜ê³  ê·¸ ìœ„ì¹˜ë¥¼ ì „ë‹¬
+   
 
-public void setFoodDBInfo() {
-	FileOutputStream foodFile = new FileOutPutStream("foodDB");
-	ObjectOutputStream d_stream = new ObjectOutputStream(foodFile);//µ¥ÀÌÅÍº£ÀÌ½º Á¢¼Ó
-	
-	wrt.write();//Á¤ÇØÁø Çü½Ä¿¡ µû¶ó db¿¡  ÀÔ·Â
-}// À¯Àú¿¡°Ô ÀÔ·Â¹ŞÀº À½½ÄÀÇ Á¤º¸¸¦ À½½Ä db¿¡ ÀúÀå
-
-public void getFoodDBInfo(String foodName) {
-	FileInputStream fred = new FileInputStream("foodDB");
-	DBModule.search(foodname);//search ÇÔ¼ö¸¦ ÅëÇØ À½½ÄÀÌ¸§¿Í ÀÏÄ¡ÇÏ´Â ·¹ÄÚµå °Ë»ö
-	String arr = fred.read();//ÀÏÄ¡ÇÏ´Â À½½Ä Á¤º¸ °¡Á®¿È
-	arr.split(":");
-	for(int i = 0; i< arr.length(); i++) {
-	foodInfo.info = arr[i];// ¸Â´Â Á¤º¸¸¦ ¼ø¼­´ë·Î ÆÄ½ÌÇÏ¿© ÀúÀå
-	}
-	fred.close();
-}
-public void setActDBInfo(double[] act) {
-	FileOutputStream actFile = new FileOutPutStream("ActDB");
-	//µ¥ÀÌÅÍº£ÀÌ½º Á¢¼Ó
-	
-	wrt.write();//Á¤ÇØÁø Çü½Ä¿¡ µû¶ó db¿¡  ÀÔ·Â
-}// À¯Àú¿¡°Ô ÀÔ·Â¹ŞÀº  ¿îµ¿ÀÇ Á¤º¸¸¦ ¿îµ¿ db¿¡ ÀúÀå
-
-public void getActDBInfo(String actName) {
-	FileInputStream fred = new FileInputStream("ActDB");
-	DBModule.search(actName);//search ÇÔ¼ö¸¦ ÅëÇØ ¿îµ¿ÀÇ ÀÌ¸§°ú ÀÏÄ¡ÇÏ´Â ·¹ÄÚµå °Ë»ö
-	String arr = fred.read();//ÀÏÄ¡ÇÏ´Â ¿îµ¿ Á¤º¸ °¡Á®¿È
-	arr.split(":");
-	for(int i = 0; i< arr.length(); i++) {
-	actInfo.info = (double)arr[i];// ¸Â´Â Á¤º¸¸¦ ¼ø¼­´ë·Î ÆÄ½ÌÇÏ¿© ÀúÀå
-	}
-	fred.close();
-}
-
-public void setEatenDBInfo() {
-	FileOutputStream EatenfoodFile = new FileOutPutStream("EatenfoodDB");
-	ObjectOutputStream d_stream = new ObjectOutputStream(EatenfoodFile);//µ¥ÀÌÅÍº£ÀÌ½º Á¢¼Ó
-	if(math.evaluateEatenFood(eatenInfo))// ¸¸¾à ¸ÔÀº À½½ÄÀÌ ±âÁØ¿¡ ¸ÂÁö ¾Ê´ÂÁö È®ÀÎ
-	wrt.write();//±âÁØ¿¡ ¸ÂÀ¸¸é Á¤ÇØÁø Çü½Ä¿¡ µû¶ó db¿¡  ÀÔ·Â
-}// À¯Àú¿¡°Ô ÀÔ·Â¹ŞÀº À½½ÄÀÇ Á¤º¸¸¦ À½½Ä db¿¡ ÀúÀå
-
-public void getEatenDBInfo(String foodName) {
-	FileInputStream fred = new FileInputStream("EatenfoodDB");
-	while(String arr = fred.read())//ÆÄÀÏ ³¡ÀÌ ´Ù´ŞÀ»¶§±îÁö À½½Ä Á¤º¸ °¡Á®¿È
-	
-	arr.split(":");
-	for(int i = 0; i< arr.length(); i++) {
-	EatenInfo.info = arr[i];// ¸Â´Â Á¤º¸¸¦ ¼ø¼­´ë·Î ÆÄ½ÌÇÏ¿© ÀúÀå
-	}
-	print(math.totalNutrient());// ¸ÔÀº À½½ÄÀÇ ÃÑ ¿µ¾ç°¡ °è»ê ÈÄ Ãâ·Â
-	fred.close();
-}//¿À´Ã ¸ÔÀº À½½ÄÀÇ Á¤º¸µéÀ» °¡Á®¿È
-
-public void search(String name) {
-
-}// ÀÌ¸§°ú ÀÏÄ¡ÇÏ´Â Á¤º¸¸¦ °¡Áø Ç×¸ñÀÌ DB¾È¿¡ ÀÖ´Â Áö °Ë»çÇÏ°í ±× À§Ä¡¸¦ Àü´Ş
-
-
-	
-}//À¯Àú Å¬·¡½º ¾È¿¡¼­ getUsesrInfo ÇÔ¼ö¾È¿¡¼­ ¾²ÀÌ´Â ÇÔ¼ö·Î id¿Í ÀÏÄ¡ÇÏ´Â ·¹ÄÚµå¸¦ µ¥ÀÌÅÍ º£ÀÌ½º ¾È¿¡¼­ Ã£°í ÀÌ¸¦  
-	public static void main(String[] args) {//unit test ¿ë ¸ŞÀÎ ÇÔ¼ö
-		
-	}
-
+      
+   }//ìœ ì € í´ë˜ìŠ¤ ì•ˆì—ì„œ getUsesrInfo í•¨ìˆ˜ì•ˆì—ì„œ ì“°ì´ëŠ” í•¨ìˆ˜ë¡œ idì™€ ì¼ì¹˜í•˜ëŠ” ë ˆì½”ë“œë¥¼ ë°ì´í„° ë² ì´ìŠ¤ ì•ˆì—ì„œ ì°¾ê³  ì´ë¥¼  
+   */
+   
 }
