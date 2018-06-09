@@ -1,44 +1,48 @@
-
-public class FoodInfo {//À½½ÄÀÇ Á¤º¸¸¦ ÀúÀåÇÏ±â À§ÇÑ Å¬·¡½º
-
- private	String UserID;
+public class FoodInfo {//ìŒì‹ì˜ ì •ë³´ë¥¼ ì €ì¥í•˜ê¸° ìœ„í•œ í´ë˜ìŠ¤
+	private	String foodName;
+	private	String kcal;
+	private	String protein;
+	private	String fat;
+	private	String catbo;
 	
- private	String data;
-	
- private	int foodID;
-	
- private	String foodName;
-	
- private	double[] foodNutrient; //¹è¿­ÀÇ ÇüÅÂ·Î °¢ index°¡ °¢ ¿µ¾ç¼Ò¸¦ ³ªÅ¸³¿
+	FoodInfo(){//constructor
+	}
  
- FoodInfo(){//constructor
- }
-//Å¬·¡½ºÀÇ Á¤º¸¸¦ ÀúÀåÇÏ°Å³ª °ªÀ» °¡Á®¿À±â À§ÇÑ ÇÔ¼öµé
-public int getFoodID() {
-	return foodID;
-}
+	//í´ë˜ìŠ¤ì˜ ì •ë³´ë¥¼ ì €ì¥í•˜ê±°ë‚˜ ê°’ì„ ê°€ì ¸ì˜¤ê¸° ìœ„í•œ í•¨ìˆ˜ë“¤
+	public String getFoodName() {
+		return this.foodName;
+	}
 
-public void setFoodID(int foodID) {
-	this.foodID = foodID;
-}
+	public String getKcal() {
+		return this.kcal;
+	}
 
-public String getFoodName() {
-	return foodName;
-}
+	public String getProtein() {
+		return this.protein;
+	}
 
-public void setFoodName(String foodName) {
-	this.foodName = foodName;
-}
+	public String getFat() {
+		return this.fat;
+	}
 
-public double getFoodNutrient() {
-	return foodNutrient;
-}
+	public String getCatbo() {
+		return this.catbo;
+	}
 
-public void setFoodNutrient(double foodNutrient) {
-	this.foodNutrient = foodNutrient;
-}
- 
 
-	 
- }
+	public void setFoodName(String foodName) {
+		this.foodName = foodName;
+	}
+	public void setKcal(String kcal) {
+		this.kcal = kcal;
+	}
+	public void setProtein(String protein) {
+		this.protein = protein;
+	}
+	public void setFat(String fat) {
+		this.fat = fat;
+	}
+	public void setCatbo(String catbo) {
+		this.catbo = catbo;
+	}
 }
