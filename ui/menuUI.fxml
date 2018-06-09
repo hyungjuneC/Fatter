@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.chart.BarChart?>
+<?import javafx.scene.chart.CategoryAxis?>
+<?import javafx.scene.chart.NumberAxis?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="400.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <VBox prefHeight="230.0" prefWidth="400.0">
+         <children>
+            <BarChart prefHeight="238.0" prefWidth="400.0">
+              <xAxis>
+                <CategoryAxis side="BOTTOM" />
+              </xAxis>
+              <yAxis>
+                <NumberAxis side="LEFT" />
+              </yAxis>
+            </BarChart>
+         </children>
+      </VBox>
+      <VBox prefHeight="275.0" prefWidth="400.0">
+         <children>
+            <TableView prefHeight="245.0" prefWidth="400.0">
+              <columns>
+                <TableColumn prefWidth="75.0" text="C1" />
+                <TableColumn prefWidth="75.0" text="C2" />
+              </columns>
+            </TableView>
+            <HBox alignment="CENTER" prefHeight="80.0" prefWidth="400.0">
+               <children>
+                  <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
+                     <HBox.margin>
+                        <Insets right="20.0" />
+                     </HBox.margin>
+                     <image>
+                        <Image url="@add.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
+                     <HBox.margin>
+                        <Insets right="20.0" />
+                     </HBox.margin>
+                     <image>
+                        <Image url="@man-user.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
+                     <HBox.margin>
+                        <Insets right="20.0" />
+                     </HBox.margin>
+                     <image>
+                        <Image url="@line-chart.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
+                     <HBox.margin>
+                        <Insets right="20.0" />
+                     </HBox.margin>
+                     <image>
+                        <Image url="@alarm-clock.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@settings-work-tool.png" />
+                     </image>
+                  </ImageView>
+               </children>
+            </HBox>
+         </children>
+      </VBox>
+   </children>
+</VBox>
