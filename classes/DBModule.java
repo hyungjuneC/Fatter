@@ -1,5 +1,3 @@
-package application;
-
 import java.util.Scanner;
 import java.io.File;
 import java.io.FileInputStream;
@@ -11,6 +9,7 @@ import java.lang.Integer;
 import java.lang.Float;
 //import java.io.serializable;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.io.IOException;
 import java.io.FileNotFoundException;
@@ -30,15 +29,16 @@ public class DBModule {
 
    DBModule(){//constructor
       try{
-            FileInputStream Input = new FileInputStream("FoodDB.txt");
+            FileInputStream Input = new FileInputStream("C:\\Users\\caucse\\Desktop\\Fatter-master\\classes\\FoodDB.txt");
 
                int i = 0;
                    
                
                if(Input.read()==-1) {
-                  System.out.println("Start Crawl!");
-                  Crawling crawl = new Crawling(); //크롤링 모듈 선언
-                  crawl.Crawling();
+                  System.out.println("Not crawled yet!");
+                  //Crawling crawl = new Crawling; //크롤링 모듈 선언
+                //crawl.connectURL(); // 홈페이지 연결
+                //crawl.getFoodInfo(fired);//웹DB에서 크롤링을 통해 음식 정보들을 로컬 DB에 저장               
                }
                else {
             	   /*
@@ -72,7 +72,6 @@ public class DBModule {
       try {
          File output = new File("UserDB.txt");
          FileWriter fw = new FileWriter(output,true);
-         //BufferedWriter bw = new BufferedWriter(fw);
         
          fw.write(String.format("%s",strId));
          fw.write(String.format(":"));
@@ -80,14 +79,14 @@ public class DBModule {
          fw.write(String.format(":"));
          fw.write(String.format("%s",sex));
          fw.write(String.format(":"));
-         fw.write(String.format("%f",height));
+         fw.write(String.format("%f",height));         
          fw.write(String.format(":"));
          fw.write(String.format("%f",weight));
          fw.write(String.format(":"));
          fw.write(String.format("%d",age));
          fw.flush();
          fw.write(LINE_SEPARATOR);
-         System.out.println("Register DONE");
+         System.out.println("DONE");
          fw.close();
       }catch(FileNotFoundException e) {
          
@@ -96,7 +95,35 @@ public class DBModule {
       }
       
    }//유저 클래스안에서 setUserInfo 함수 안에서 실행될 함수로 파라미터로  회원가입 시 입력된 정보가 저장된 User 클래스를 받아 그정보를 DB에 기록한다.
-   
+   public void setUserDBInfoFirst(String strId, String strPw,String sex, float height, float weight, int age) {
+	      try {
+	         File output = new File("UserDB.txt");
+	         FileWriter fw = new FileWriter(output,true);
+	        
+	         fw.write(String.format("%s",strId));
+	         fw.write(String.format(":"));
+	         fw.write(String.format("%s",strPw));
+	         fw.write(String.format(":"));
+	         fw.write(String.format("%s",sex));
+	         fw.write(String.format(":"));
+	         fw.write(String.format("%f",height));         
+	         fw.write(String.format(":"));
+	         fw.write(String.format("%f",weight));
+	         fw.write(String.format(":"));
+	         fw.write(String.format("%d",age));
+	         fw.write(String.format(":"));
+	         fw.write(String.format("%f",weight));
+	         fw.flush();
+	         fw.write(LINE_SEPARATOR);
+	         System.out.println("DONE");
+	         fw.close();
+	      }catch(FileNotFoundException e) {
+	         
+	      }catch(IOException e) {
+	         System.out.println(e);
+	      }
+	      
+	   }
    public void getUserDBInfo(String u_id,User user) {
       try {
          File input = new File("UserDB.txt");
@@ -115,9 +142,10 @@ public class DBModule {
             if(u_id.equals(DB_id)) {
                String sex = split[2];
                
-               double height = Float.parseFloat(split[3]);
-               double weight = Float.parseFloat(split[4]);
+               float height = Float.parseFloat(split[3]);
+               float weight = Float.parseFloat(split[4]);
                int age = Integer.parseInt(split[5]);
+               float firstWeight = Float.parseFloat(split[6]);
       
                user.setUserInfo(DB_id,DB_pw,sex, height, weight, age);
                break;
@@ -163,6 +191,30 @@ public class DBModule {
 	   
 	   
    }// 이름과 일치하는 정보를 가진 항목이 DB안에 있는 지 검사하고 그 위치를 전달
+   
+   public ArrayList<String> getFoodDB() {
+	   ArrayList<String> foodnames = new ArrayList<>();
+	   
+	   try {
+	         File input = new File("FoodDB.txt");
+	         FileReader filereader = new FileReader(input);
+	         BufferedReader bufReader = new BufferedReader(filereader);
+	         String line="";
+	        
+	         while((line = bufReader.readLine()) !=null) {
+	           foodnames.add(line);
+	           line = bufReader.readLine();
+	         }
+	         bufReader.close();
+	         return foodnames;
+	      }catch(FileNotFoundException e) {
+	    	  System.out.println(e);
+	    	  return foodnames;
+	      }catch(IOException e) {
+	         System.out.println(e);
+	         return foodnames;
+	      }
+   }
    
    
    /*
@@ -224,6 +276,7 @@ public class DBModule {
    
    }// 이름과 일치하는 정보를 가진 항목이 DB안에 있는 지 검사하고 그 위치를 전달
    
+
       
    }//유저 클래스 안에서 getUsesrInfo 함수안에서 쓰이는 함수로 id와 일치하는 레코드를 데이터 베이스 안에서 찾고 이를  
    */
