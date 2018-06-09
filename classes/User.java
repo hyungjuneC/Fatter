@@ -4,6 +4,7 @@ public class User {
 	private String sex;
 	private double height;
 	private double weight;
+	private double firstWeight;
 	private int age;
 	private double BMR;
 	/*
@@ -24,11 +25,21 @@ public class User {
 		this.weight = Weight;
 		this.age = Age;
 	}
+	
 	public String getId() {
 		return this.u_id;
 	}
 	public String getPW() {
 		return this.password;
+	}
+	public double getHeight() {
+		return this.height;
+	}
+	public double getWeight() {
+		return this.weight;
+	}
+	public double getFirstWeight() {
+		return this.firstWeight;
 	}
 	public double getBMR(){
 		return this.BMR;
