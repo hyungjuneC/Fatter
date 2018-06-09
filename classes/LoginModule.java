@@ -19,6 +19,9 @@ public class LoginModule {
       if(!strPw.equals(confirmPw)) {
     	  return false;
       }
+      else if(myDBModule.search(strId)) {
+    	  return false;    	  
+      }
       else if(sex!="male"&&sex!="female") {
     	  return false;
       }
