@@ -133,7 +133,6 @@ public class DBModule {
 	         FileReader filereader = new FileReader(input);
 
 	         BufferedReader bufReader = new BufferedReader(filereader);
-
 	         
 
 	         String line = bufReader.readLine();
@@ -141,89 +140,74 @@ public class DBModule {
 	         String[] split = line.split(":");
 
 	         String u_id = split[0];
-	         System.out.println(u_id);
-
-	         //filereader.close();
-
 	         
-
+    
+	         ArrayList<User> userList = new ArrayList<User>();
 	         File input2 = new File("UserDB.txt");
 
-	         FileWriter fw = new FileWriter(input2,true);
-
-	         BufferedWriter bufWriter = new BufferedWriter(fw);
-
+	         FileReader filereader2 = new FileReader(input2);
+	         BufferedReader bufReader2 = new BufferedReader(filereader2);
 	         
-
-	         while((line = bufWriter.writeLine()) !=null) {
-
+	         while((line = bufReader2.readLine()) !=null) {
+	           	 User user = new User();
 	        	 split = line.split(":");
 
 	        	 String id = split[0];
 	        	 System.out.println(id);
-	                         
-
-	             if(u_id.equals(id)) {
-	            	 System.out.println("in");
-	            	String pw = split[1];
-
-	                String sex = split[2];	                
-
-	                float height = Float.parseFloat(split[3]);
-
-	                float weight = Float.parseFloat(split[4]);
-
-	                int age = Integer.parseInt(split[5]);
-
-	                float firstWeight = Float.parseFloat(split[6]);
-
-	       
-
-	                fw.write(String.format("%s",id));
-
-	                fw.write(String.format(":"));
-
-	                fw.write(String.format("%s",pw));
+	        	 String pw = split[1];
+	        	 String sex = split[2];	  
+	             float height = Float.parseFloat(split[3]);
+	             float weight = Float.parseFloat(split[4]);
+	             int age = Integer.parseInt(split[5]);
+	             float firstWeight = Float.parseFloat(split[6]);
+	             if (id.equals(u_id)) {
+	            	 height = Float.parseFloat(heightN);
+	            	 weight = Float.parseFloat(weightN);
+	            	 age = Integer.parseInt(ageN);
+	             }
+	             
+	             user.setUserInfoFirst(id,pw,sex,height,weight,age,firstWeight);
+	             userList.add(user);	             
+	         }
+	         filereader.close();
+	         FileWriter fw = new FileWriter(input2);
+	         
+	         for(int i=0;i<userList.size();i++) {
+	                fw.write(String.format("%s",userList.get(i).getId()));
 
 	                fw.write(String.format(":"));
 
-	                fw.write(String.format("%s",sex));
+	                fw.write(String.format("%s",userList.get(i).getPW()));
 
 	                fw.write(String.format(":"));
 
-	                fw.write(String.format("%f",heightN));  //       
+	                fw.write(String.format("%s",userList.get(i).getSex()));
 
 	                fw.write(String.format(":"));
 
-	                fw.write(String.format("%f",weightN));	//
+	                fw.write(String.format("%f",userList.get(i).getHeight()));  //       
 
 	                fw.write(String.format(":"));
 
-	                fw.write(String.format("%d",ageN));		//
+	                fw.write(String.format("%f",userList.get(i).getWeight()));	//
 
 	                fw.write(String.format(":"));
 
-	                fw.write(String.format("%d",firstWeight));
+	                fw.write(String.format("%d",userList.get(i).getAge()));		//
+
+	                fw.write(String.format(":"));
+
+	                fw.write(String.format("%f",userList.get(i).getFirstWeight()));
 
 	                fw.flush();
 
 	                fw.write(LINE_SEPARATOR);
 
-	                System.out.println("DONE");
-
-	                fw.close();
-
-	                break;
-
-	             }
-
 	         }
+             System.out.println("DONE");
 
-	         
-
-	         System.out.println("DONE");
-
-	         filereader.close();
+	         fw.close();
+             // filereader.close();
 
 	      }catch(FileNotFoundException e) {
 

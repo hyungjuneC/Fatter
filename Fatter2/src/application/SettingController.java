@@ -20,7 +20,6 @@ public class SettingController implements Initializable {
 	@FXML Text firstWeight;
 	User recentuser = new User();
 	DBModule db = new DBModule();
-
 	
 	@FXML
 	private void returnAction(ActionEvent event) throws IOException {
