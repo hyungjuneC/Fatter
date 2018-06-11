@@ -17,7 +17,7 @@ import java.io.IOException;
 import java.io.*;
 
 
-public class Crawling {
+public class Crawling extends Thread{
 	 static int count = 0;
 	 static int j  = 0 ;
 	static int count2 = 0; 
@@ -25,13 +25,14 @@ public class Crawling {
 	static Elements names;
 	static Elements nutritions;
 	static Element a; 
-	static String url = "https://www.foodsafetykorea.go.kr/portal/healthyfoodlife/foodnutrient/simpleSearch.do?menu_no=2805&menu_grp=MENU_NEW03&code4=2&code2=&search_name=&page=";
-	static File output = new File("FoodDB.txt");
+	
+	static File output = new File("FoodDB.db");
     
 	public static void main(String[] args) {
 		
 		try {
 			for(int i = 1; i<6; i++) {
+		    String url = "https://www.foodsafetykorea.go.kr/portal/healthyfoodlife/foodnutrient/simpleSearch.do?menu_no=2805&menu_grp=MENU_NEW03&code4=2&code2=&search_name=&page=";
 		    url = url.concat(String.valueOf(i));
 			Document kofood = Jsoup.connect(url).get();
 			String html = kofood.html();
@@ -89,6 +90,7 @@ public class Crawling {
 	public void Crawling() {
 		try {
 			for(int i = 1; i<6; i++) {
+		    String url = "https://www.foodsafetykorea.go.kr/portal/healthyfoodlife/foodnutrient/simpleSearch.do?menu_no=2805&menu_grp=MENU_NEW03&code4=2&code2=&search_name=&page=";
 		    url = url.concat(String.valueOf(i));
 			Document kofood = Jsoup.connect(url).get();
 			String html = kofood.html();

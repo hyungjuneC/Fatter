@@ -22,7 +22,7 @@ public class DBModule {
 
    DBModule(){//constructor
       try{
-            FileInputStream Input = new FileInputStream("FoodDB.txt");
+            FileInputStream Input = new FileInputStream("FoodDB.db");
 
                int i = 0;
                    
@@ -52,6 +52,409 @@ public class DBModule {
           
        }
    }
+   
+   public String searchName() {
+
+	   try {
+
+	         File input = new File("RecentUser.db");
+
+	         FileReader filereader = new FileReader(input);
+
+	         BufferedReader bufReader = new BufferedReader(filereader);
+
+	         
+
+	         String line="";
+
+	         String split[];
+
+	         
+
+	         line = bufReader.readLine();
+
+	         split = line.split(":");
+
+	         
+
+	         String DB_id=split[0];
+
+	        
+
+	         bufReader.close();
+
+	         return DB_id;
+
+	        
+
+	         
+
+	      }catch(FileNotFoundException e) {
+
+	    	  return "";
+
+	    	 
+
+	      }catch(IOException e) {
+
+	         System.out.println(e);
+
+	         return "";
+
+	        
+
+	      }
+
+	   
+
+   }
+   
+   public float[] calculation(User user) {
+
+	   float maxKcal=0, maxFat=0, maxProtein=0, maxCarbo=0;
+
+	   float sumKcal=0,sumFat=0,sumProtein=0,sumCarbo=0;
+
+	   float percentageOfKcal =0, percentageOfFat =0, percentageOfProtein =0, percentageOfCarbo =0;
+
+	  
+	   if(user.getSex().equals("male")) { 
+
+		   maxKcal = (float) (1200 + 66.47 + user.getWeight()*13.75 +user.getHeight()*5 - user.getAge()*6.76) ; 
+
+		   if (user.getAge() <20){
+
+			   maxFat = 60;
+
+			   maxProtein = 50;
+
+			   maxCarbo = 1500;
+
+		   }
+
+		   else if(user.getAge() <30){
+
+			   maxFat = 60;
+
+			   maxProtein = 45;
+
+			   maxCarbo = 1300;
+
+		   }
+
+		   else if(user.getAge() <50){
+
+			   maxFat = 50;
+
+			   maxProtein = 40;
+
+			   maxCarbo = 1100;
+
+		   }
+
+		   else {
+
+			   maxFat = 45;
+
+			   maxProtein = 35;
+
+			   maxCarbo = 900;
+
+		   }
+
+		 
+
+	   }
+
+	   else if(user.getSex().equals("female")) {
+
+		   maxKcal = (float) (900 + 66.47 + user.getWeight()*13.75 +user.getHeight()*5 - user.getAge()*6.76) ;
+
+		   if (user.getAge() <20){
+
+			   maxFat = 55;
+
+			   maxProtein = 40;
+
+			   maxCarbo = 1000;
+
+		   }
+
+		   else if(user.getAge() <30){
+
+			   maxFat = 50;
+
+			   maxProtein = 35;
+
+			   maxCarbo = 900;
+
+		   }
+
+		   else if(user.getAge() <50){
+
+			   maxFat = 45;
+
+			   maxProtein = 30;
+
+			   maxCarbo = 800;
+
+		   }
+
+		   else {
+
+			   maxFat = 40;
+
+			   maxProtein = 20;
+
+			   maxCarbo = 700;
+
+		   }
+
+	   }
+
+	   
+
+	   DBModule myDBModule = new DBModule();
+
+	   String id = myDBModule.searchName();
+
+	   ArrayList<FoodInfo> foodListOfUser = searchFoodByUser();
+
+	   float[] percentageOfNut = new float[4];
+
+	  
+
+	   for(int i=0;i<foodListOfUser.size();i++) {
+
+		   sumCarbo += Float.parseFloat(foodListOfUser.get(i).getKcal());
+
+		   sumFat += Float.parseFloat(foodListOfUser.get(i).getFat());
+
+		   sumProtein += Float.parseFloat(foodListOfUser.get(i).getProtein());
+
+		   sumKcal += Float.parseFloat(foodListOfUser.get(i).getCatbo());
+		   System.out.println(sumCarbo);
+
+	   }
+
+	   
+	  
+	   System.out.println("maxKcal"+maxKcal);
+	   System.out.println("maxFat"+maxFat);
+	   System.out.println("maxProtein"+maxProtein);
+	   System.out.println("maxCarbo"+maxCarbo);
+	   System.out.println();
+	   System.out.println("sumKcal"+sumKcal);
+	   System.out.println("sumFat"+sumFat);
+	   System.out.println("sumProtein"+sumProtein);
+	   System.out.println("sumCarbo"+sumCarbo);
+	   
+	   percentageOfKcal = sumKcal/maxKcal;
+
+	   percentageOfFat = sumFat/maxFat;
+
+	   percentageOfProtein = sumProtein/maxProtein;
+
+	   percentageOfCarbo = sumCarbo/maxCarbo;	   
+
+	   
+
+	   percentageOfNut[0]=percentageOfKcal;
+
+	   percentageOfNut[1]=percentageOfFat;
+
+	   percentageOfNut[2]=percentageOfProtein;
+
+	   percentageOfNut[3]=percentageOfCarbo;
+
+	   
+
+	   return percentageOfNut;
+
+   }
+   
+   public ArrayList searchFoodByUser() {
+
+		  DBModule myDBModule = new DBModule();
+
+		  String id = myDBModule.searchName();
+
+		  ArrayList<FoodInfo> foodListOfUser = new ArrayList();
+
+		  
+
+		  try {
+
+		         File input = new File("UserFoodInfo_"+id+".db");
+
+		         FileReader filereader = new FileReader(input);
+
+		         BufferedReader bufReader = new BufferedReader(filereader);
+
+		         
+
+		         String line="";
+
+		         String split[];
+
+		         String date;
+
+		         String name;
+
+		         String kcal;
+
+		         String fat;
+
+		         String carbo;
+
+		         String protein;
+
+		         
+
+	     
+
+		         while((line = bufReader.readLine()) !=null) {
+
+		        	FoodInfo food = new FoodInfo();
+
+		        	
+
+		            split = line.split(":");
+
+		            name= split[0];
+
+		            carbo = split[1]; 
+
+		            kcal = split[2]; 
+
+		            fat = split[3]; 
+
+		            protein = split[4]; 
+		            
+		            date = split[5];
+
+		            
+
+		            food.setFoodName(name);
+
+		            food.setCatbo(carbo);
+
+		            food.setFat(fat);
+
+		            food.setKcal(kcal);
+
+		            food.setProtein(protein);
+
+		            food.setDate(date);
+
+		            foodListOfUser.add(food);
+
+		     
+
+		         }
+
+		         bufReader.close();
+
+		         return foodListOfUser;
+
+		        
+
+		      }catch(FileNotFoundException e) {
+
+		    	  return foodListOfUser ;
+
+		    	 
+
+		      }catch(IOException e) {
+
+		         System.out.println(e);
+
+		         return foodListOfUser ;
+
+		        
+
+		      }
+
+	   }
+   	public ArrayList<FoodInfo> deleteFoodDB(int index) {
+
+	   ArrayList<FoodInfo> newFoodList =new ArrayList();
+
+	   ArrayList<FoodInfo> foodList = searchFoodByUser();
+
+	   foodList.remove(index);
+	   
+	   return foodList;
+
+   }
+ 
+
+ 
+
+ 
+
+   public void setEatenFoodByUser(String strId,FoodInfo food) {
+
+	      try {
+
+	         File output = new File("UserFoodInfo_"+strId+".db");
+
+	         FileWriter fw = new FileWriter(output,true);
+
+
+	         fw.write(String.format("%s",food.getFoodName()));
+
+	         fw.write(String.format(":"));
+	         
+	      
+	         fw.write(String.format("%s",food.getKcal()));
+
+	         fw.write(String.format(":"));
+	        
+	         fw.write(String.format("%s",food.getCatbo()));
+	         
+	         fw.write(String.format(":"));
+
+	         fw.write(String.format("%s",food.getFat()));
+
+	         fw.write(String.format(":"));
+
+	         fw.write(String.format("%s",food.getProtein()));     
+	         
+	         fw.write(String.format(":"));
+	         
+	         fw.write(String.format("%s",food.getDate()));
+
+	         
+	         
+	        
+
+	        
+	       
+
+	         
+
+	         fw.flush();
+
+	         fw.write(LINE_SEPARATOR);
+
+	         System.out.println("DONE");
+
+	         fw.close();
+
+	      }catch(FileNotFoundException e) {
+
+	         
+
+	      }catch(IOException e) {
+
+	         System.out.println(e);
+
+	      }
+
+	      
+
+   }
 
    
    public ArrayList<FoodInfo> getFoodDB() {
@@ -64,7 +467,7 @@ public class DBModule {
 
 	   try {
 
-	         File input = new File("FoodDB.txt");
+	         File input = new File("FoodDB.db");
 
 	         FileReader filereader = new FileReader(input);
 
@@ -90,9 +493,9 @@ public class DBModule {
 
 	             myFoodInfo.setCatbo(split[2]);
 
-	             myFoodInfo.setProtein(split[3]);
+	             myFoodInfo.setProtein(split[4]);
 
-	             myFoodInfo.setFat(split[4]);
+	             myFoodInfo.setFat(split[3]);
 
 	                      
 
@@ -128,7 +531,7 @@ public class DBModule {
 
 		   	 DBModule myDBModule = new DBModule();
 
-	         File input = new File("RecentUser.txt");
+	         File input = new File("RecentUser.db");
 
 	         FileReader filereader = new FileReader(input);
 
@@ -143,7 +546,7 @@ public class DBModule {
 	         
     
 	         ArrayList<User> userList = new ArrayList<User>();
-	         File input2 = new File("UserDB.txt");
+	         File input2 = new File("UserDB.db");
 
 	         FileReader filereader2 = new FileReader(input2);
 	         BufferedReader bufReader2 = new BufferedReader(filereader2);
@@ -228,7 +631,7 @@ public class DBModule {
    
    public void setUserDBInfo(String strId, String strPw,String sex, float height, float weight, int age) {
       try {
-         File output = new File("UserDB.txt");
+         File output = new File("UserDB.db");
          FileWriter fw = new FileWriter(output,true);
         
          fw.write(String.format("%s",strId));
@@ -255,7 +658,7 @@ public class DBModule {
    }//유저 클래스안에서 setUserInfo 함수 안에서 실행될 함수로 파라미터로  회원가입 시 입력된 정보가 저장된 User 클래스를 받아 그정보를 DB에 기록한다.
    public void setUserDBInfoFirst(String strId, String strPw,String sex, float height, float weight, int age) {
 	      try {
-	         File output = new File("UserDB.txt");
+	         File output = new File("UserDB.db");
 	         FileWriter fw = new FileWriter(output,true);
 	        
 	         fw.write(String.format("%s",strId));
@@ -284,7 +687,7 @@ public class DBModule {
 	   }
    public void setUserDBInfoRecent(String strId, String strPw,String sex, float height, float weight, int age,float firstweight) {
 	      try {
-	    	 String filename = "RecentUser.txt";
+	    	 String filename = "RecentUser.db";
 	         File output = new File(filename);
 	         FileWriter fw = new FileWriter(output);
 	        
@@ -314,7 +717,7 @@ public class DBModule {
 	   }
    public void getUserDBInfo(String u_id,User user) {
       try {
-         File input = new File("UserDB.txt");
+         File input = new File("UserDB.db");
          FileReader filereader = new FileReader(input);
          BufferedReader bufReader = new BufferedReader(filereader);
       
@@ -349,7 +752,7 @@ public class DBModule {
    }
    public void getRecentUserDBInfo(User user) {
 	      try {
-	         File input = new File("RecentUser.txt");
+	         File input = new File("RecentUser.db");
 	         FileReader filereader = new FileReader(input);
 	         BufferedReader bufReader = new BufferedReader(filereader);
 	      
@@ -384,7 +787,7 @@ public class DBModule {
 	   }
    public boolean search(String name) {
 	   try {
-	         File input = new File("UserDB.txt");
+	         File input = new File("UserDB.db");
 	         FileReader filereader = new FileReader(input);
 	         BufferedReader bufReader = new BufferedReader(filereader);
 	      

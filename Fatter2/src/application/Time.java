@@ -245,6 +245,119 @@ import javax.swing.border.EmptyBorder;
 
 
 }
+     
+     class TestLayOut7 {
+
+    	 static JFrame mainFrame;
+
+    	 public TestLayOut7(){
+
+    	  JPanel textViewPanel=new JPanel();
+
+    	  JButton c_buttonOk = new JButton("확인");
+
+    	  
+
+    	  Container cp = new Container();
+
+    	  JTextArea chetView = new JTextArea();
+    	  
+    	  
+    	  chetView.setText("Alarm Setting complete!");
+    	  chetView.setFont(chetView.getFont().deriveFont(16f));
+
+    	  
+    	 
+    	  chetView.setEditable(false);
+    	  
+
+    	  JScrollPane js = new JScrollPane(chetView);
+
+    	  mainFrame = new JFrame("Eaten time");
+
+    	  // 텍스트판넬
+
+    	  textViewPanel.setBorder(new EmptyBorder(5,5,380, 235));
+
+    	  textViewPanel.setLayout(null);
+
+    	  textViewPanel.setBounds(5,5,380, 235);
+
+    	  textViewPanel.add(js);
+    	  
+
+    	  js.setBounds(5,5,383, 30);
+
+    	  textViewPanel.add(c_buttonOk);
+
+    	  c_buttonOk.setBounds(322, 240, 65, 20);
+
+    	 
+
+    	  //익명이너클레스 액션처리
+
+    	  c_buttonOk.addActionListener(new ActionListener() {
+
+    	 
+
+    	   @Override
+
+    	   public void actionPerformed(ActionEvent e) {
+
+    	    // TODO Auto-generated method stub
+
+    	    mainFrame
+
+    	      .setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+
+    	    mainFrame.setVisible(false);
+
+    	   }
+
+    	  });
+
+    	 
+
+    	 
+
+    	  //프레임 사이즈및 적재 
+
+    	  cp = mainFrame.getContentPane();
+
+    	  cp.add("Center", textViewPanel);
+
+    	  mainFrame.setSize(400, 297);
+
+    	  mainFrame.setResizable(false); 
+
+    	 
+
+    	  //정중앙위치잡기
+
+    	  Dimension screen=Toolkit.getDefaultToolkit().getScreenSize();
+
+    	  Dimension f_size = mainFrame.getSize();
+
+    	  int x=((int)(screen.getWidth()/2-f_size.width/2));
+
+    	  int y=((int)(screen.getHeight()/2-f_size.height/2));
+
+    	  mainFrame.setLocation(x,y);
+
+    	 
+
+    	  //화면그리기
+
+    	  mainFrame.setVisible(true);
+
+    	 
+
+    	 }
+    	 
+
+
+    }
+
 
 public class Time  extends Thread{
 	private int hour;
@@ -281,7 +394,7 @@ public class Time  extends Thread{
 		this.minute = C.get(Calendar.MINUTE);
 		this.second = C.get(Calendar.SECOND);
 		
-		
+		new TestLayOut7();
 		while(true) {
 			try {
 				Thread.sleep(1000);

@@ -12,7 +12,7 @@ public class FoodInfo {//음식의 정보를 저장하기 위한 클래스
 
 	private	String catbo;
 
-	
+	private String date;
 
 	FoodInfo(){//constructor
 
@@ -27,7 +27,12 @@ public class FoodInfo {//음식의 정보를 저장하기 위한 클래스
 		return this.foodName;
 
 	}
+	
+	public String getDate() {
 
+		return this.date;
+
+	}
  
 
 	public String getKcal() {
@@ -69,6 +74,13 @@ public class FoodInfo {//음식의 정보를 저장하기 위한 클래스
 		this.foodName = foodName;
 
 	}
+	
+	public void setDate(String date) {
+
+		this.date = date;
+
+	}
+
 
 	public void setKcal(String kcal) {
 

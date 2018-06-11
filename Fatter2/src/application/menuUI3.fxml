@@ -12,7 +12,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox fx:controller="application.MenuController" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="400.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<VBox fx:controller="application.MenuController" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="500.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <VBox prefHeight="230.0" prefWidth="400.0">
          <children>
@@ -21,25 +21,21 @@
           <CategoryAxis fx:id="dailyX" side="BOTTOM" />
         </xAxis>
         <yAxis>
-          <NumberAxis fx:id="dailyY" label="kcal" side="LEFT" />
+          <NumberAxis fx:id="dailyY" side="LEFT" />
         </yAxis>
       </BarChart>
-      <BarChart fx:id="weekly" layoutX="350.0" prefHeight="400.0" prefWidth="350.0" title="Weekly" titleSide="BOTTOM">
-         <xAxis>
-            <CategoryAxis fx:id="weeklyX" side="BOTTOM" />
-         </xAxis>
-         <yAxis>
-            <NumberAxis fx:id="weeklyY" label="kcal" side="LEFT" />
-         </yAxis>
-            </BarChart>
          </children>
       </VBox>
       <VBox prefHeight="275.0" prefWidth="400.0">
          <children>
-            <TableView prefHeight="245.0" prefWidth="400.0">
+            <TableView fx:id="foodTableView" prefHeight="245.0" prefWidth="400.0">
               <columns>
-                <TableColumn prefWidth="75.0" text="C1" />
-                <TableColumn prefWidth="75.0" text="C2" />
+                <TableColumn fx:id="foodNameColumn" prefWidth="150.0" text="Food" />
+                <TableColumn fx:id="kcalColumn" prefWidth="55.0" text="Carbo" />
+                <TableColumn fx:id="proteinColumn" prefWidth="55.0" text="Protein" />
+                <TableColumn fx:id="fatColumn" prefWidth="55.0" text="Fat" />
+                <TableColumn fx:id="carboColumn" prefWidth="55.0" text="kcal" />
+                <TableColumn fx:id="dateColumn" prefWidth="100.0" text="Date" />
               </columns>
             </TableView>
             <HBox alignment="CENTER" prefHeight="68.0" prefWidth="400.0">
@@ -49,6 +45,17 @@
                         <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
                            <image>
                               <Image url="@add.png" />
+                           </image></ImageView>
+                     </graphic>
+                     <HBox.margin>
+                        <Insets right="20.0" />
+                     </HBox.margin>
+                  </Button>
+                  <Button mnemonicParsing="false" prefHeight="40.0" prefWidth="40.0" onAction="#deleteFood">
+                     <graphic>
+                        <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@minus.png" />
                            </image></ImageView>
                      </graphic>
                      <HBox.margin>
@@ -77,17 +84,7 @@
                         <Insets right="20.0" />
                      </HBox.margin>
                   </Button>
-                  <Button mnemonicParsing="false" prefHeight="40.0" prefWidth="40.0">
-                     <graphic>
-                        <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@line-chart.png" />
-                           </image></ImageView>
-                     </graphic>
-                     <HBox.margin>
-                        <Insets right="20.0" />
-                     </HBox.margin>
-                  </Button>
+                  
                   <Button mnemonicParsing="false" prefHeight="40.0" prefWidth="40.0" onAction="#setting">
                      <graphic>
                         <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
@@ -99,6 +96,7 @@
                         <Insets right="20.0" />
                      </HBox.margin>
                   </Button>
+                  
                </children>
             </HBox>
          </children>

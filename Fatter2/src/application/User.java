@@ -9,14 +9,6 @@ public class User {
 	private float firstWeight;
 	private int age;
 	private float BMR;
-	/*
-	public void getUserInfo() {	// dbModule을 사용하는 getter 함수
-		LoginModule loginModule;
-		DBModule dbModule;
-		if (loginModule.compareIDPassword()) {	// 입력 아이디와 비번이 DB와 일치시 
-			dbModule.getUserDBInfo(this);
-		}
-	}*/
 	
 	public void setUserInfoFirst(String u_id,String password,String Sex, float Height, float Weight, int Age,float firstWeight) {	// 사용자의 입력을 받아 저장하는 setter 함수
 		this.u_id = u_id;
